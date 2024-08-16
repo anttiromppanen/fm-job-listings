@@ -1,5 +1,7 @@
 import prisma from "@/db/client";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const jobListings = await prisma.jobListing.findMany();
 
