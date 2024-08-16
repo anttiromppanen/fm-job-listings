@@ -15,6 +15,10 @@ const config: Config = {
         userDarkGrayishCyan: "hsl(180, 8%, 52%)",
         userVeryDarkGrayishCyan: "hsl(180, 14%, 20%)",
       },
+      backgroundImage: {
+        userHeaderBgDesktop: "url('/img/bg-header-desktop.svg')",
+        userHeaderBgMobile: "url('/img/bg-header-mobile.svg')",
+      },
     },
   },
   plugins: [],

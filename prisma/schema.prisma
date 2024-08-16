@@ -14,15 +14,23 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum Permanency {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+}
+
 model JobListing {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   title       String
+  slug        String     @unique
   description String
   company     String
   location    String
-  permanency  String
+  permanency  Permanency @default(PART_TIME)
   featured    Boolean
   tags        String[]
   imgUrl      String
-  createdAt   DateTime @default(now())
+  createdAt   DateTime   @default(now())
 }

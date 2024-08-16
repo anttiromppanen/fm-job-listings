@@ -1,4 +1,5 @@
-import prisma from "@/db/client";
+import JobListingItem from "@/components/JobListingItem";
+import prisma from "@/server/db/client";
 
 export const dynamic = "force-dynamic";
 
@@ -6,14 +7,10 @@ export default async function Home() {
   const jobListings = await prisma.jobListing.findMany();
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <h1>Hello world</h1>
-      <div>
+    <main className="">
+      <div className="flex flex-col my-20 gap-y-4">
         {jobListings.map((jobListing) => (
-          <div key={jobListing.id} className="mt-10 bg-teal-500">
-            <h2>{jobListing.title}</h2>
-            <p>{jobListing.description}</p>
-          </div>
+          <JobListingItem key={jobListing.id} jobListing={jobListing} />
         ))}
       </div>
     </main>
