@@ -1,4 +1,4 @@
-import prisma from "./server/db/client";
+import prisma from "@/db/client";
 
 export default async function Home() {
   const jobListings = await prisma.jobListing.findMany();
