@@ -1,23 +1,10 @@
 "use client";
 
-import getPlaceholderImage from "@/helpers/imageBlur";
 import JobListing from "@/types/types";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 function JobListingItem({ jobListing }: { jobListing: JobListing }) {
-  const {
-    company,
-    featured,
-    createdAt,
-    description,
-    id,
-    imgUrl,
-    location,
-    permanency,
-    tags,
-    title,
-  } = jobListing;
+  const { company, featured, imgUrl } = jobListing;
   return (
     <article className="bg-white p-8 flex flex-col md:flex-row rounded-md shadow-xl shadow-userDesaturatedDarkCyan/20">
       <Image
