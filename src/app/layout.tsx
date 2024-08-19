@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
+import Header from "@/components/Header";
 import type { Metadata } from "next";
 import { League_Spartan } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
 
 const leagueSpartan = League_Spartan({ subsets: ["latin"] });
 
@@ -17,11 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={leagueSpartan.className}>
-        <Header />
-        <div className="w-full max-w-6xl mx-auto">{children}</div>
-      </body>
-    </html>
+    <ReactQueryClientProvider>
+      <html lang="en">
+        <body className={leagueSpartan.className}>
+          <Header />
+          <div className="w-full max-w-6xl mx-auto">{children}</div>
+        </body>
+      </html>
+    </ReactQueryClientProvider>
   );
 }

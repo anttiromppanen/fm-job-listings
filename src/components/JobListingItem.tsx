@@ -1,25 +1,44 @@
+"use client";
+
 import getPlaceholderImage from "@/helpers/imageBlur";
 import JobListing from "@/types/types";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-async function JobListingItem({ jobListing }: { jobListing: JobListing }) {
-  const { company, title, imgUrl } = jobListing;
-  const blurImg = await getPlaceholderImage(imgUrl);
-
+function JobListingItem({ jobListing }: { jobListing: JobListing }) {
+  const {
+    company,
+    featured,
+    createdAt,
+    description,
+    id,
+    imgUrl,
+    location,
+    permanency,
+    tags,
+    title,
+  } = jobListing;
   return (
-    <div className="bg-white p-10 rounded-md shadow-xl shadow-userDesaturatedDarkCyan/20">
+    <article className="bg-white p-8 flex flex-col md:flex-row rounded-md shadow-xl shadow-userDesaturatedDarkCyan/20">
       <Image
         src={imgUrl}
         alt={`${company} Logo`}
         width={88}
         height={88}
-        loading="lazy"
-        placeholder="blur"
-        blurDataURL={blurImg.placeholder}
-        className="rounded-full"
+        className="rounded-full select-none"
+        priority
       />
-      {company} - {title}
-    </div>
+      <div>
+        <div className="flex font-bold">
+          <h1 className="text-userDesaturatedDarkCyan">{company}</h1>
+          {featured && (
+            <span className="bg-black text-white text-sm flex items-center justify-center px-2 pt-1 rounded-full ml-2">
+              FEATURED
+            </span>
+          )}
+        </div>
+      </div>
+    </article>
   );
 }
 

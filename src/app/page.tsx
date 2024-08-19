@@ -1,18 +1,12 @@
-import JobListingItem from "@/components/JobListingItem";
-import prisma from "@/server/db/client";
-
-export const dynamic = "force-dynamic";
+import JobListings from "@/components/JobListings";
+import getListings from "@/lib/middleware/actions";
 
 export default async function Home() {
-  const jobListings = await prisma.jobListing.findMany();
+  const listings = await getListings({});
 
   return (
     <main className="">
-      <div className="flex flex-col my-20 gap-y-4">
-        {jobListings.map((jobListing) => (
-          <JobListingItem key={jobListing.id} jobListing={jobListing} />
-        ))}
-      </div>
+      <JobListings listings={listings} />
     </main>
   );
 }
