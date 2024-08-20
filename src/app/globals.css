@@ -7,3 +7,9 @@
     @apply bg-userBgColor;
   }
 }
+
+@layer components {
+  .tag-checkbox:has(input:checked) {
+    @apply bg-userDesaturatedDarkCyan text-white;
+  }
+}

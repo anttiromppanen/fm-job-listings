@@ -6,12 +6,14 @@ import getListings from "./actions";
 
 export default function useGetMoreListings({
   listings,
+  filter,
 }: {
   listings: JobListing[];
+  filter: string[];
 }) {
   return useInfiniteQuery({
-    queryKey: ["listings"],
-    queryFn: ({ pageParam }) => getListings({ pageParam }),
+    queryKey: ["listings", filter],
+    queryFn: ({ pageParam }) => getListings({ pageParam, tags: filter }),
     getNextPageParam: (lastPage) =>
       lastPage && lastPage.length
         ? lastPage[lastPage.length - 1].id
