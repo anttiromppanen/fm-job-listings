@@ -5,9 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   let jobListings = null;
   try {
-    jobListings = await prisma.jobListing.findMany({
-      take: 5,
-    });
+    jobListings = await prisma.jobListing.findMany();
   } catch (error) {
     return NextResponse.json({
       message: "Error fetching job listings",

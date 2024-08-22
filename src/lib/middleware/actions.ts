@@ -18,6 +18,14 @@ export default async function getListings({
         hasEvery: tags,
       },
     },
+    orderBy: [
+      {
+        featured: "desc",
+      },
+      {
+        id: "desc",
+      },
+    ],
   });
   return res;
 }

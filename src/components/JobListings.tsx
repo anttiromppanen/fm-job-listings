@@ -39,7 +39,7 @@ function JobListings({ listings }: { listings: JobListing[] }) {
   }, [filter, setListingsState]);
 
   return (
-    <div className="flex flex-col my-20 gap-y-4">
+    <div className="flex flex-col mt-10 mb-20 gap-y-5">
       {listingsState.map((jobListing: JobListing) => (
         <JobListingItem key={jobListing.id} jobListing={jobListing} />
       ))}

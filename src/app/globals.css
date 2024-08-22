@@ -12,4 +12,12 @@
   .tag-checkbox:has(input:checked) {
     @apply bg-userDesaturatedDarkCyan text-white;
   }
+
+  .buttons-hover-anim {
+    @apply transition-colors duration-75;
+  }
+
+  .card-shadow {
+    @apply shadow-xl shadow-userDesaturatedDarkCyan/15;
+  }
 }

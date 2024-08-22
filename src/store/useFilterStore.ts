@@ -4,6 +4,7 @@ interface FilterState {
   filter: string[];
   // eslint-disable-next-line no-unused-vars
   setFilter: (tag: string) => void;
+  clearFilter: () => void;
 }
 
 const useFilterStore = create<FilterState>((set) => ({
@@ -15,6 +16,7 @@ const useFilterStore = create<FilterState>((set) => ({
       }
       return { filter: [...state.filter, tag] };
     }),
+  clearFilter: () => set({ filter: [] }),
 }));
 
 export default useFilterStore;

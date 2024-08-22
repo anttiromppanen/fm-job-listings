@@ -7,14 +7,21 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
-    "db:push": "npx dotenv -e .env.local -- prisma db push",
-    "migrate:reset": "npx dotenv -e .env.local -- prisma migrate reset",
-    "db:seed": "npx dotenv -e .env.local -- prisma db seed",
+    "migrate:dev": "npx dotenv -e .env.development -- prisma migrate dev --schema=./prisma/schema_dev.prisma",
+    "db:push": "npx dotenv -e .env.development -- prisma db push --schema=./prisma/schema_dev.prisma",
+    "migrate:reset": "npx dotenv -e .env.development -- prisma migrate reset --schema=./prisma/schema_dev.prisma",
+    "db:seed": "npx dotenv -e .env.development -- prisma db seed --schema=./prisma/schema_dev.prisma",
+    "prisma:migrate:status": "npx dotenv -e .env.production -- prisma migrate status",
+    "prisma:migrate:resolve": "npx dotenv -e .env.development -- prisma migrate resolve --applied 20240822041604_dev --schema=./prisma/schema_dev.prisma",
+    "prisma:migrate:rolledback": "npx dotenv -e .env.development -- prisma migrate resolve --rolled-back 20240822041604_dev --schema=./prisma/schema_dev.prisma",
     "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
-    "prisma:studio": "npx dotenv -e .env.local -- prisma studio",
-    "production:build": "npx dotenv -e .env.local prisma generate && npx dotenv -e .env.local prisma migrate deploy && next build",
-    "postinstall": "npx dotenv -e .env.local -- prisma generate"
+    "prisma:studio:dev": "npx dotenv -e .env.development -- prisma studio",
+    "prisma:studio:prod": "npx dotenv -e .env.production -- prisma studio",
+    "production:build": "npx dotenv -e .env.production prisma generate && npx dotenv -e .env.production prisma migrate deploy && next build",
+    "postinstall": "npx dotenv -e .env.production -- prisma generate"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.18.0",
@@ -24,6 +31,7 @@
     "react-dom": "^18",
     "react-intersection-observer": "^9.13.0",
     "sharp": "^0.33.5",
+    "sqlite3": "^5.1.7",
     "zustand": "^4.5.5"
   },
   "devDependencies": {

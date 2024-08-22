@@ -42,7 +42,11 @@ function JobListingItem({ jobListing }: { jobListing: JobListing }) {
   const isNew = isListingNew(parsedDate);
 
   return (
-    <article className="bg-white p-8 flex flex-col justify-between md:flex-row gap-x-4 rounded-md shadow-xl shadow-userDesaturatedDarkCyan/20">
+    <article
+      className={`
+      card-shadow bg-white p-8 flex flex-col justify-between md:flex-row gap-x-4 rounded-md
+      ${featured && "border-l-8 border-l-userDesaturatedDarkCyan"}`}
+    >
       <div className="flex">
         {imgUrl ? (
           <Image
@@ -65,7 +69,7 @@ function JobListingItem({ jobListing }: { jobListing: JobListing }) {
               </span>
             )}
             {featured && (
-              <span className="bg-black text-white text-xs flex items-center justify-center px-2 pt-1 rounded-full ml-2">
+              <span className="bg-userVeryDarkGrayishCyan text-white text-xs flex items-center justify-center px-2 pt-1 rounded-full ml-2">
                 FEATURED
               </span>
             )}
