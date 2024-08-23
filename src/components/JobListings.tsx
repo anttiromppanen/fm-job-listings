@@ -8,8 +8,10 @@ import useFilterStore from "@/store/useFilterStore";
 import getListings from "@/lib/middleware/actions";
 import InfiniteLoadListingsComponent from "./InfiniteLoadListingsComponent";
 import JobListingItem from "./JobListingItem";
+import Loader from "./Loader";
 
 function JobListings({ listings }: { listings: JobListing[] }) {
+  const [isLoading, setIsLoading] = useState(false);
   const filter = useFilterStore((state) => state.filter);
   const [listingsState, setListingsState] = useState(listings);
   const { ref, inView } = useInView();
@@ -32,21 +34,42 @@ function JobListings({ listings }: { listings: JobListing[] }) {
   // fetch new data when user selects a filter
   useEffect(() => {
     const getListingsAsync = async () => {
-      const res = await getListings({ tags: filter });
-      setListingsState(res);
+      let loadingTimeout;
+
+      // Set a timer to set `isLoading` to true if it takes more than 500ms
+      const loadingPromise: Promise<void> = new Promise((resolve) => {
+        loadingTimeout = setTimeout(() => {
+          setIsLoading(true);
+          resolve();
+        }, 400);
+      });
+
+      const listingsPromise = await getListings({ tags: filter });
+      const res = await Promise.race([listingsPromise, loadingPromise]);
+
+      clearTimeout(loadingTimeout);
+      setIsLoading(false);
+
+      if (res) setListingsState(res);
     };
     getListingsAsync();
-  }, [filter, setListingsState]);
+  }, [filter, setListingsState, setIsLoading]);
 
   return (
     <div className="flex flex-col mt-10 mb-20 gap-y-5">
-      {listingsState.map((jobListing: JobListing) => (
-        <JobListingItem key={jobListing.id} jobListing={jobListing} />
-      ))}
-      {hasNextPage && data?.pages && (
+      {isLoading ? (
+        <div className="flex justify-center">
+          <Loader />
+        </div>
+      ) : (
+        listingsState.map((jobListing: JobListing) => (
+          <JobListingItem key={jobListing.id} jobListing={jobListing} />
+        ))
+      )}
+      {hasNextPage && data?.pages && !isLoading && (
         <InfiniteLoadListingsComponent loadMoreRef={ref} />
       )}
-      {!hasNextPage && (
+      {!hasNextPage && !isLoading && (
         <p className="text-neutral-500 mt-4 text-center">
           No more listings to show
         </p>
