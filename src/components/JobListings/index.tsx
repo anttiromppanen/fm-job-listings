@@ -13,10 +13,9 @@ import JobListingsContainer from "./JobListingsContainer";
 function JobListings({ listings }: { listings: JobListing[] }) {
   const [isLoading, setIsLoading] = useState(false);
   const filter = useFilterStore((state) => state.filter);
-  const [listingsState, setListingsState] = useState(listings);
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({ rootMargin: "-100px" });
   const { data, hasNextPage, fetchNextPage } = useGetMoreListings({
-    listings: listingsState,
+    listings,
     filter,
   });
 
@@ -24,40 +23,29 @@ function JobListings({ listings }: { listings: JobListing[] }) {
   useEffect(() => {
     const getListingsAsync = async () => {
       let loadingTimeout;
-
-      // Set a timer to set `isLoading` to true if it takes more than 500ms
+      // Set a timer to set `isLoading` to true if it takes more than 2000ms
       const loadingPromise: Promise<void> = new Promise((resolve) => {
         loadingTimeout = setTimeout(() => {
           setIsLoading(true);
           resolve();
-        }, 400);
+        }, 2000);
       });
 
       const listingsPromise = await getListings({
         pageParam: undefined,
         tags: filter,
       });
-      const res = await Promise.race([listingsPromise, loadingPromise]);
+      await Promise.race([listingsPromise, loadingPromise]);
 
-      clearTimeout(loadingTimeout);
       setIsLoading(false);
-
-      if (res) {
-        setListingsState(res);
-      }
+      clearTimeout(loadingTimeout);
     };
     getListingsAsync();
-  }, [filter, setListingsState, setIsLoading]);
+  }, [filter, setIsLoading]);
 
   // fetch new data when user scrolls to the bottom of the page
   useEffect(() => {
-    if (inView && hasNextPage) {
-      (async () => {
-        const res = await fetchNextPage();
-        const newData = res.data?.pages.flat() || [];
-        setListingsState([...newData]);
-      })();
-    }
+    if (inView && hasNextPage) fetchNextPage();
   }, [inView, fetchNextPage, hasNextPage]);
 
   return (
@@ -67,7 +55,7 @@ function JobListings({ listings }: { listings: JobListing[] }) {
           <Loader />
         </div>
       ) : (
-        <JobListingsContainer listingsState={listingsState} />
+        <JobListingsContainer listingsState={data?.pages.flat() || []} />
       )}
       {hasNextPage && data?.pages && !isLoading && (
         <InfiniteLoadListingsComponent loadMoreRef={ref} />

@@ -5,8 +5,9 @@ export default function Tag({ tag }: { tag: string }) {
   const filter = useFilterStore((state) => state.filter);
   const setFilters = useFilterStore((state) => state.setFilter);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilters(e.target.value);
+  };
 
   const id = useId();
   return (
