@@ -20,17 +20,6 @@ function JobListings({ listings }: { listings: JobListing[] }) {
     filter,
   });
 
-  // fetch new data when user scrolls to the bottom of the page
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      (async () => {
-        const res = await fetchNextPage();
-        const newData = res.data?.pages.flat() || [];
-        setListingsState([...newData]);
-      })();
-    }
-  }, [inView, fetchNextPage, hasNextPage]);
-
   // fetch new data when user selects a filter
   useEffect(() => {
     const getListingsAsync = async () => {
@@ -44,7 +33,10 @@ function JobListings({ listings }: { listings: JobListing[] }) {
         }, 400);
       });
 
-      const listingsPromise = await getListings({ tags: filter });
+      const listingsPromise = await getListings({
+        pageParam: undefined,
+        tags: filter,
+      });
       const res = await Promise.race([listingsPromise, loadingPromise]);
 
       clearTimeout(loadingTimeout);
@@ -56,6 +48,17 @@ function JobListings({ listings }: { listings: JobListing[] }) {
     };
     getListingsAsync();
   }, [filter, setListingsState, setIsLoading]);
+
+  // fetch new data when user scrolls to the bottom of the page
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      (async () => {
+        const res = await fetchNextPage();
+        const newData = res.data?.pages.flat() || [];
+        setListingsState([...newData]);
+      })();
+    }
+  }, [inView, fetchNextPage, hasNextPage]);
 
   return (
     <div className="mt-10 mb-20">
