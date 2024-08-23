@@ -1,5 +1,5 @@
-import { AnimatePresence, motion, Variants } from "framer-motion";
 import useFilterStore from "@/store/useFilterStore";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 
 const animationVariants: Variants = {
