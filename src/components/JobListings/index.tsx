@@ -1,14 +1,14 @@
 "use client";
 
+import getListings from "@/lib/middleware/actions";
 import useGetMoreListings from "@/lib/middleware/useGetMoreListings";
+import useFilterStore from "@/store/useFilterStore";
 import JobListing from "@/types/types";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import useFilterStore from "@/store/useFilterStore";
-import getListings from "@/lib/middleware/actions";
-import InfiniteLoadListingsComponent from "./InfiniteLoadListingsComponent";
-import JobListingItem from "./JobListingItem";
-import Loader from "./Loader";
+import InfiniteLoadListingsComponent from "../InfiniteLoadListingsComponent";
+import Loader from "../Loader";
+import JobListingsContainer from "./JobListingsContainer";
 
 function JobListings({ listings }: { listings: JobListing[] }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,21 +50,21 @@ function JobListings({ listings }: { listings: JobListing[] }) {
       clearTimeout(loadingTimeout);
       setIsLoading(false);
 
-      if (res) setListingsState(res);
+      if (res) {
+        setListingsState(res);
+      }
     };
     getListingsAsync();
   }, [filter, setListingsState, setIsLoading]);
 
   return (
-    <div className="flex flex-col mt-10 mb-20 gap-y-5">
+    <div className="mt-10 mb-20">
       {isLoading ? (
         <div className="flex justify-center">
           <Loader />
         </div>
       ) : (
-        listingsState.map((jobListing: JobListing) => (
-          <JobListingItem key={jobListing.id} jobListing={jobListing} />
-        ))
+        <JobListingsContainer listingsState={listingsState} />
       )}
       {hasNextPage && data?.pages && !isLoading && (
         <InfiniteLoadListingsComponent loadMoreRef={ref} />
