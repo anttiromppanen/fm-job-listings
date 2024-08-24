@@ -14,6 +14,7 @@ interface JobListing {
   featured: boolean;
   tags: string[];
   imgUrl: string;
+  slug: string;
   createdAt: Date;
 }
 

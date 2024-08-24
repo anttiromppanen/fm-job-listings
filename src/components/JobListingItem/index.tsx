@@ -9,6 +9,7 @@ import {
 import JobListing from "@/types/types";
 import Image from "next/image";
 import { useMemo } from "react";
+import Link from "next/link";
 import Tags from "./Tags";
 
 function MockLogo({ companyName }: { companyName: string }) {
@@ -37,6 +38,7 @@ function JobListingItem({ jobListing }: { jobListing: JobListing }) {
     location,
     createdAt,
     tags,
+    slug,
   } = jobListing;
   const parsedDate = parseDate(createdAt);
   const isNew = isListingNew(parsedDate);
@@ -74,9 +76,12 @@ function JobListingItem({ jobListing }: { jobListing: JobListing }) {
               </span>
             )}
           </div>
-          <h2 className="text-lg font-bold text-userVeryDarkGrayishCyan">
+          <Link
+            href={`/joblisting/${slug}`}
+            className="text-lg font-bold text-userVeryDarkGrayishCyan"
+          >
             {title}
-          </h2>
+          </Link>
           <div className="flex text-userDarkGrayishCyan">
             <p className="">{parsedDate}</p>
             <span className="mx-2">•</span>
