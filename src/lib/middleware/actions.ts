@@ -29,3 +29,12 @@ export default async function getListings({
   });
   return res;
 }
+
+export async function getListingBySlug(slug: string) {
+  const res = await prisma.jobListing.findUnique({
+    where: {
+      slug,
+    },
+  });
+  return res;
+}
