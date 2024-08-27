@@ -8,7 +8,6 @@ import Image from "next/image";
 async function page({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const listing = (await getListingBySlug(slug)) as JobListing;
-  // new Promise((resolve) => setTimeout(resolve, 1000));
 
   return (
     <div className="my-10">

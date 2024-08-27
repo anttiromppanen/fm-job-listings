@@ -84,7 +84,7 @@ function JobListingItem({ jobListing }: { jobListing: JobListing }) {
           </div>
           <Link
             href={`/joblisting/${slug}`}
-            className="text-base md:text-lg font-bold text-userVeryDarkGrayishCyan"
+            className="text-base md:text-lg hover:text-userDesaturatedDarkCyan font-bold text-userVeryDarkGrayishCyan"
           >
             {title}
           </Link>
