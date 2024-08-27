@@ -18,7 +18,7 @@ function FilterItem({ item }: { item: string }) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="bg-userFilterTablets text-xs rounded-md flex items-center"
+      className="bg-userFilterTablets md:text-xs rounded-sm flex items-center"
     >
       <span className="text-userDesaturatedDarkCyan px-2 pt-1 font-bold cursor-pointer">
         {item}
@@ -27,13 +27,14 @@ function FilterItem({ item }: { item: string }) {
         type="button"
         aria-label={`Remove ${item} from filter`}
         onClick={handleRemoveFilter}
-        className="buttons-hover-anim bg-userDesaturatedDarkCyan flex items-center justify-center p-2 rounded-r-md hover:bg-userVeryDarkGrayishCyan"
+        className="buttons-hover-anim bg-userDesaturatedDarkCyan flex items-center justify-center p-2.5 md:p-2 rounded-r-md hover:bg-userVeryDarkGrayishCyan"
       >
         <Image
           src="/img/icon-remove.svg"
           alt="Remove icon"
           width={10}
           height={10}
+          className="size-[12px] md:size-[10px]"
         />
       </button>
     </motion.div>

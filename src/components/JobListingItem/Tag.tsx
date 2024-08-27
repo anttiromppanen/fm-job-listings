@@ -4,19 +4,19 @@ import React, { ChangeEvent, useId } from "react";
 export default function Tag({ tag }: { tag: string }) {
   const filter = useFilterStore((state) => state.filter);
   const setFilters = useFilterStore((state) => state.setFilter);
+  const id = useId();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilters(e.target.value);
   };
 
-  const id = useId();
   return (
     <div
       key={tag}
       className="
-          tag-checkbox buttons-hover-anim flex h-fit text-userDesaturatedDarkCyan focus-within:outline 
-          focus-within:outline-2 focus-within:outline-userDesaturatedDarkCyan items-center px-2 py-1 
-        bg-userFilterTablets relative rounded-md hover:bg-userDesaturatedDarkCyan hover:text-white"
+        tag-checkbox buttons-hover-anim flex h-fit text-userDesaturatedDarkCyan focus-within:outline
+        focus-within:outline-2 focus-within:outline-userDesaturatedDarkCyan items-center px-2 pt-1 pb-0.5
+      bg-userFilterTablets relative rounded-md hover:bg-userDesaturatedDarkCyan hover:text-white"
     >
       <input
         id={`bordered-checkbox-${id}`}
@@ -29,7 +29,7 @@ export default function Tag({ tag }: { tag: string }) {
       />
       <label
         htmlFor={`bordered-checkbox-${id}`}
-        className="w-full text-sm text-center font-bold select-none"
+        className="w-full md:text-sm text-center font-bold select-none"
       >
         {tag}
       </label>

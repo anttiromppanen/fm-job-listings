@@ -5,7 +5,7 @@ import { League_Spartan } from "next/font/google";
 import "./globals.css";
 import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
 
-const leagueSpartan = League_Spartan({ subsets: ["latin"] });
+const leagueSpartan = League_Spartan({ subsets: ["latin"], preload: false });
 
 export const metadata: Metadata = {
   title: "Job Listings",
@@ -22,7 +22,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={leagueSpartan.className}>
           <Header />
-          <div className="w-full max-w-6xl mx-auto">{children}</div>
+          <div className="user-container">{children}</div>
         </body>
       </html>
     </ReactQueryClientProvider>

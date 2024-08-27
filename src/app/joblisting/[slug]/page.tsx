@@ -8,6 +8,7 @@ import Image from "next/image";
 async function page({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const listing = (await getListingBySlug(slug)) as JobListing;
+  // new Promise((resolve) => setTimeout(resolve, 1000));
 
   return (
     <div className="my-10">
@@ -25,21 +26,21 @@ async function page({ params }: { params: { slug: string } }) {
           <MockLogo companyName={listing.company} />
         )}
         <div className="w-full">
-          <div className="flex items-center justify-between">
-            <h1 className="text-4xl text-userVeryDarkGrayishCyan font-bold">
+          <div className="flex md:flex-row flex-col-reverse md:items-center justify-between">
+            <h1 className="text-3xl md:text-4xl text-userVeryDarkGrayishCyan font-bold">
               {listing.company}
             </h1>
-            <p className="text-lg px-4 py-1 text-userDesaturatedDarkCyan font-bold">
+            <p className="md:text-lg md:px-4 md:py-1 text-userDesaturatedDarkCyan font-bold">
               {parsePermanency(listing.permanency)}
             </p>
           </div>
-          <h2 className="text-2xl text-userVeryDarkGrayishCyan">
+          <h2 className="text-xl md:text-2xl text-userVeryDarkGrayishCyan">
             {listing.title}
           </h2>
           <p>{listing.location}</p>
         </div>
       </div>
-      <div className="pl-[102px] mt-4">
+      <div className="md:pl-[102px] mt-8 md:mt-4">
         <p className="text-userDarkGrayishCyan text-lg">
           {loremIpsum({
             count: 8,
@@ -48,7 +49,7 @@ async function page({ params }: { params: { slug: string } }) {
             sentenceUpperBound: 8,
           })}
         </p>
-        <div className="flex gap-x-4 mt-8">
+        <div className="flex flex-wrap gap-x-4 gap-y-2 mt-8">
           {listing.tags.map((tag) => (
             <span
               key={tag}

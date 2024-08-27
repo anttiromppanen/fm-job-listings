@@ -30,7 +30,7 @@ function JobListingsContainer({
   listingsState: JobListing[];
 }) {
   return (
-    <div className="flex flex-col gap-y-5">
+    <div className="flex flex-col gap-y-10 md:gap-y-5">
       <AnimatePresence initial={false}>
         {listingsState.map((jobListing: JobListing, i) => (
           <motion.div

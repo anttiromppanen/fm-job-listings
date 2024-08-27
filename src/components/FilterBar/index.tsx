@@ -26,22 +26,24 @@ function FilterBar() {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="card-shadow bg-white mx-auto flex justify-between max-w-6xl -mt-7 px-10 py-4 rounded-md"
+          className="user-container -mt-8 md:-mt-7"
         >
-          <div className="flex gap-x-4">
-            <AnimatePresence mode="sync">
-              {filter.map((item) => (
-                <FilterItem key={item} item={item} />
-              ))}
-            </AnimatePresence>
+          <div className="card-shadow bg-white flex justify-between px-4 md:px-10 py-4 rounded-md">
+            <div className="flex flex-wrap gap-y-4 gap-x-4">
+              <AnimatePresence mode="sync">
+                {filter.map((item) => (
+                  <FilterItem key={item} item={item} />
+                ))}
+              </AnimatePresence>
+            </div>
+            <button
+              type="button"
+              onClick={clearFilter}
+              className="buttons-hover-anim text-userDarkGrayishCyan ml-4 md:text-sm font-bold hover:underline hover:text-userDesaturatedDarkCyan p-1"
+            >
+              Clear
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={clearFilter}
-            className="buttons-hover-anim text-userDarkGrayishCyan text-sm font-bold hover:underline hover:text-userDesaturatedDarkCyan p-1"
-          >
-            Clear
-          </button>
         </motion.div>
       )}
     </AnimatePresence>

@@ -49,7 +49,7 @@ function JobListings({ listings }: { listings: JobListing[] }) {
   }, [inView, fetchNextPage, hasNextPage]);
 
   return (
-    <div className="mt-10 mb-20">
+    <div className="mt-12 md:mt-16 mb-20">
       {isLoading ? (
         <div className="flex justify-center">
           <Loader />
